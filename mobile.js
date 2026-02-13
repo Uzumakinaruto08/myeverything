@@ -2,8 +2,6 @@ let highestZ = 1;
 
 class Paper {
   holdingPaper = false;
-  touchStartX = 0;
-  touchStartY = 0;
   prevTouchX = 0;
   prevTouchY = 0;
   currentPaperX = 0;
@@ -12,64 +10,67 @@ class Paper {
   rotating = false;
 
   init(paper) {
-    // Handle Move
+    // MOVE EVENT
     paper.addEventListener('touchmove', (e) => {
+      // Importante ito para hindi gumalaw ang buong webpage habang nagda-drag
       e.preventDefault();
+      
       if (!this.holdingPaper) return;
 
-      // Calculate how much the finger has moved since the last frame
-      const touchX = e.touches[0].clientX;
-      const touchY = e.touches[0].clientY;
-
-      const deltaX = touchX - this.prevTouchX;
-      const deltaY = touchY - this.prevTouchY;
+      const touch = e.touches[0];
+      
+      // Kunin ang distansya ng nilakbay ng daliri
+      const deltaX = touch.clientX - this.prevTouchX;
+      const deltaY = touch.clientY - this.prevTouchY;
 
       if (!this.rotating) {
         this.currentPaperX += deltaX;
         this.currentPaperY += deltaY;
       }
 
-      // Update previous touch points for the next move event
-      this.prevTouchX = touchX;
-      this.prevTouchY = touchY;
+      // I-update ang prev values para sa susunod na frame
+      this.prevTouchX = touch.clientX;
+      this.prevTouchY = touch.clientY;
 
-      // Apply Transformation
+      // I-apply ang galaw sa papel
       paper.style.transform = `translate(${this.currentPaperX}px, ${this.currentPaperY}px) rotateZ(${this.rotation}deg)`;
-    }, { passive: false });
+    }, { passive: false }); // 'passive: false' ay kailangan sa mobile browsers
 
-    // Handle Start
+    // START EVENT
     paper.addEventListener('touchstart', (e) => {
       if (this.holdingPaper) return; 
       this.holdingPaper = true;
 
-      // Bring paper to front
+      // Paibabawin ang papel na hinawakan
       paper.style.zIndex = highestZ;
       highestZ += 1;
 
-      // Initialize touch points
-      this.touchStartX = e.touches[0].clientX;
-      this.touchStartY = e.touches[0].clientY;
-      this.prevTouchX = this.touchStartX;
-      this.prevTouchY = this.touchStartY;
+      const touch = e.touches[0];
+      this.prevTouchX = touch.clientX;
+      this.prevTouchY = touch.clientY;
     });
 
-    // Handle End
-    paper.addEventListener('touchend', () => {
+    // END EVENT
+    const stopHolding = () => {
       this.holdingPaper = false;
       this.rotating = false;
-    });
+    };
 
-    // Special Gesture for iOS (Rotation)
+    paper.addEventListener('touchend', stopHolding);
+    paper.addEventListener('touchcancel', stopHolding);
+
+    // PARA SA IOS GESTURES (ROTATION)
     paper.addEventListener('gesturestart', (e) => {
       e.preventDefault();
       this.rotating = true;
     });
-    
+
     paper.addEventListener('gesturechange', (e) => {
-       if (this.rotating) {
-         this.rotation += e.rotation; // Basic rotation increment
-         paper.style.transform = `translate(${this.currentPaperX}px, ${this.currentPaperY}px) rotateZ(${this.rotation}deg)`;
-       }
+      e.preventDefault();
+      if (this.rotating) {
+        this.rotation += e.rotation; 
+        paper.style.transform = `translate(${this.currentPaperX}px, ${this.currentPaperY}px) rotateZ(${this.rotation}deg)`;
+      }
     });
 
     paper.addEventListener('gestureend', () => {
