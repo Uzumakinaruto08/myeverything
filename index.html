@@ -1,11 +1,56 @@
-<!DOCTYPE html>
-<html lang="en" >
 <head>
   <meta charset="UTF-8">
   <title>HAPPY VALENTINES DAY EVERYONE!! ❤️</title>
-  <link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Short+Stack&amp;family=Homemade+Apple&amp;display=swap'><link rel="stylesheet" href="./style.css">
-  
+  <link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Short+Stack&amp;family=Homemade+Apple&amp;display=swap'>
+  <link rel="stylesheet" href="./style.css">
 
+  <style>
+    body {
+      overflow: hidden; /* Prevents scrollbars from appearing as balloons rise */
+    }
+
+    .balloons {
+      position: fixed;
+      bottom: -100px; /* Start below the screen */
+      font-size: 2.5rem;
+      user-select: none;
+      z-index: -1; /* Keep them behind the draggable papers */
+      pointer-events: none; /* So they don't block your clicking/dragging */
+      animation: floatUp 10s linear infinite, sway 3s ease-in-out infinite alternate;
+    }
+
+    /* The Rising Animation */
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-120vh);
+        opacity: 0;
+      }
+    }
+
+    /* The Side-to-Side Swaying Animation */
+    @keyframes sway {
+      0% { margin-left: 0px; }
+      100% { margin-left: 50px; }
+    }
+
+    /* Randomizing positions and speeds for variety */
+    .b1 { left: 5%;  animation-duration: 8s;  animation-delay: 0s; }
+    .b2 { left: 20%; animation-duration: 12s; animation-delay: 2s; }
+    .b3 { left: 40%; animation-duration: 10s; animation-delay: 4s; }
+    .b4 { left: 65%; animation-duration: 14s; animation-delay: 1s; }
+    .b5 { left: 85%; animation-duration: 9s;  animation-delay: 5s; }
+    .b6 { left: 50%; animation-duration: 11s; animation-delay: 7s; }
+  </style>
 </head>
 <body>
 
