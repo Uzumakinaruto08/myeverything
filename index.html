@@ -1,104 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HAPPY VALENTINES DAY EVERYONE!! ❤️</title>
   <link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Short+Stack&amp;family=Homemade+Apple&amp;display=swap'>
   <link rel="stylesheet" href="./style.css">
 
   <style>
     body {
-      overflow: hidden; /* Prevents scrollbars from appearing as balloons rise */
+      overflow: hidden;
+      /* Soft pink gradient background */
+      background: linear-gradient(180deg, #ffafbd 0%, #ffc3a0 100%);
+      height: 100vh;
+      margin: 0;
     }
 
     .balloons {
       position: fixed;
-      bottom: -100px; /* Start below the screen */
+      bottom: -100px;
       font-size: 2.5rem;
       user-select: none;
-      z-index: -1; /* Keep them behind the draggable papers */
-      pointer-events: none; /* So they don't block your clicking/dragging */
+      z-index: -1; 
+      pointer-events: none;
       animation: floatUp 10s linear infinite, sway 3s ease-in-out infinite alternate;
     }
 
-    /* The Rising Animation */
     @keyframes floatUp {
-      0% {
-        transform: translateY(0);
-        opacity: 0;
-      }
-      10% {
-        opacity: 1;
-      }
-      90% {
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-120vh);
-        opacity: 0;
-      }
+      0% { transform: translateY(0); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(-120vh); opacity: 0; }
     }
 
-    /* The Side-to-Side Swaying Animation */
     @keyframes sway {
       0% { margin-left: 0px; }
       100% { margin-left: 50px; }
     }
 
-    /* Randomizing positions and speeds for variety */
     .b1 { left: 5%;  animation-duration: 8s;  animation-delay: 0s; }
     .b2 { left: 20%; animation-duration: 12s; animation-delay: 2s; }
     .b3 { left: 40%; animation-duration: 10s; animation-delay: 4s; }
     .b4 { left: 65%; animation-duration: 14s; animation-delay: 1s; }
     .b5 { left: 85%; animation-duration: 9s;  animation-delay: 5s; }
-    .b6 { left: 50%; animation-duration: 11s; animation-delay: 7s; }
+    .b6 { left: 50%; animation-duration: 11s; animation-delay: 3s; }
+
+    /* Keeps the audio player hidden but functional if you want it clean */
+    audio {
+      display: none;
+    }
   </style>
 </head>
 <body>
 
-<div class="balloons b1">🎈❤️</div>
-<div class="balloons b2">💖</div>
-<div class="balloons b3">🎈</div>
-<div class="balloons b4">❤️</div>
-<div class="balloons b5">💝</div>
+  <div class="balloons b1">🎈❤️</div>
+  <div class="balloons b2">💖</div>
+  <div class="balloons b3">🎈</div>
+  <div class="balloons b4">❤️</div>
+  <div class="balloons b5">💝</div>
+  <div class="balloons b6">💕</div>
 
-<audio controls autoplay>
-  <source src="sound/Tanawin.mp3" type="audio/ogg">
-  <source src="sound/Tanawin.mp3" type="audio/mpeg">
-</audio>
+  <audio id="bgMusic" controls autoplay loop>
+    <source src="sound/Tanawin.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
 
-<div class="paper heart"></div>
+  <div class="paper heart"></div>
 
-<div class="paper image">
-  <p>To all the</p>
-  <p>Wonderful Souls 😍 </p>
-  <img src="images/images1.jpg" />
-</div>
+  <div class="paper image">
+    <p>To all the</p>
+    <p>Wonderful Souls 😍 </p>
+    <img src="images/images1.jpg" />
+  </div>
 
-<div class="paper image">
-  <p>Love is all around us</p>
-  <img src="images/image2.jpg" />
-</div>
+  <div class="paper image">
+    <p>Love is all around us</p>
+    <img src="images/image2.jpg" />
+  </div>
 
-<div class="paper image">
-  <p>SMILE AND BE HAPPY</p>
-  <p>EVERYONE ❤️ </p>
-  <img src="images/image3.jpg" />
-</div>
+  <div class="paper image">
+    <p>SMILE AND BE HAPPY</p>
+    <p>EVERYONE ❤️ </p>
+    <img src="images/image3.jpg" />
+  </div>
 
-<div class="paper red">
-<p class="p1">Spread the</p>
-<p class="p2">Love & Kindness 😍</p>
-</div>
+  <div class="paper red">
+    <p class="p1">Spread the</p>
+    <p class="p2">Love & Kindness 😍</p>
+  </div>
 
-<div class="paper">
-<p class="p1">HAPPY </p>
-  <p class="p1">VALENTINES <span style="color: red !important;">❤️</span></p>
-</div>
+  <div class="paper">
+    <p class="p1">HAPPY </p>
+    <p class="p1">VALENTINES <span style="color: red !important;">❤️</span></p>
+  </div>
 
-<div class="paper">
-<p class="p1">Drag the papers to move!</p>
-</div>
+  <div class="paper">
+    <p class="p1">Drag the papers to move!</p>
+  </div>
 
   <script src="./script.js"></script>
+
+  <script>
+    document.addEventListener('touchstart', function() {
+      document.getElementById('bgMusic').play();
+    }, { once: true });
+  </script>
 
 </body>
 </html>
